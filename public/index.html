@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Тени Эльдории - Гримуар</title>
+    <meta name="description" content="Настольная RPG игра в стиле тёмного фэнтези. Правила, описание и отзывы.">
+    
+    <!-- Telegram WebApp Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Animated Background -->
+        <div class="bg-particles"></div>
+        <div class="bg-vignette"></div>
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚔️</span>
+                    <h1>Тени Эльдории</h1>
+                </div>
+                <p class="tagline">Настольная RPG в мире тёмного фэнтези</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="about">
+                <span class="tab-icon">📜</span>
+                <span class="tab-text">Об игре</span>
+            </button>
+            <button class="nav-tab" data-tab="rules">
+                <span class="tab-icon">⚔️</span>
+                <span class="tab-text">Правила</span>
+            </button>
+            <button class="nav-tab" data-tab="feedback">
+                <span class="tab-icon">✉️</span>
+                <span class="tab-text">Отзыв</span>
+            </button>
+        </nav>
+
+        <!-- Content Sections -->
+        <main class="content">
+            <!-- About Section -->
+            <section class="tab-content active" id="about">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>🌑 Погрузитесь во Тьму</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="intro-text">
+                            <strong>Тени Эльдории</strong> — это настольная ролевая игра для 2-5 игроков, 
+                            где вы и ваши союзники становитесь последней надеждой мира, 
+                            погружённого во тьму.
+                        </p>
+                        
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">🎭</div>
+                                <h3>Уникальные герои</h3>
+                                <p>8 классов персонажей с уникальными способностями и историями</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🗡️</div>
+                                <h3>Тактические бои</h3>
+                                <p>Стратегические сражения с использованием карт и кубиков</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🏰</div>
+                                <h3>Исследование</h3>
+                                <p>Процедурно генерируемые подземелья и локации</p>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">📖</div>
+                                <h3>Глубокий сюжет</h3>
+                                <p>Нелинейная история с множеством концовок</p>
+                            </div>
+                        </div>
+
+                        <div class="stats-bar">
+                            <div class="stat">
+                                <span class="stat-value">2-5</span>
+                                <span class="stat-label">игроков</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">60-180</span>
+                                <span class="stat-label">минут</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">14+</span>
+                                <span class="stat-label">возраст</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>🌍 Мир Эльдории</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Некогда процветающий мир Эльдория был поглощён Вечной Тьмой, 
+                            когда Тёмный Владыка Морготар разбил Печать Света. 
+                            Теперь монстры бродят по руинам древних королевств, 
+                            а немногие выжившие прячутся в укреплённых поселениях.
+                        </p>
+                        <p>
+                            Вы — члены Ордена Сумеречных Клинков, последней организации, 
+                            способной противостоять тьме. Ваша миссия — найти осколки 
+                            разбитой Печати и возродить Свет... или погибнуть, пытаясь.
+                        </p>
+                        <div class="lore-quote">
+                            <blockquote>
+                                "Во тьме рождается истинный свет. 
+                                В отчаянии — истинная надежда."
+                            </blockquote>
+                            <cite>— Летопись Ордена</cite>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rules Section -->
+            <section class="tab-content" id="rules">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>⚔️ Основные правила</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="rules-section">
+                            <h3>🎲 Подготовка к игре</h3>
+                            <ol class="rules-list">
+                                <li>Каждый игрок выбирает одного героя из доступных классов</li>
+                                <li>Соберите начальную колоду способностей (10 карт)</li>
+                                <li>Разместите фигурки героев в Цитадели Света</li>
+                                <li>Перемешайте колоды событий, врагов и сокровищ</li>
+                                <li>Определите первого игрока броском кубика</li>
+                            </ol>
+                        </div>
+
+                        <div class="rules-section">
+                            <h3>🔄 Ход игры</h3>
+                            <p>Каждый ход состоит из трёх фаз:</p>
+                            <div class="phase-cards">
+                                <div class="phase-card">
+                                    <div class="phase-number">1</div>
+                                    <h4>Фаза Тьмы</h4>
+                                    <p>Вытяните карту события. Враги активируются и атакуют.</p>
+                                </div>
+                                <div class="phase-card">
+                                    <div class="phase-number">2</div>
+                                    <h4>Фаза Героев</h4>
+                                    <p>Передвигайтесь, сражайтесь, используйте способности.</p>
+                                </div>
+                                <div class="phase-card">
+                                    <div class="phase-number">3</div>
+                                    <h4>Фаза Отдыха</h4>
+                                    <p>Восстановление ресурсов, торговля, улучшение снаряжения.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rules-section">
+                            <h3>⚔️ Боевая система</h3>
+                            <ol class="rules-list">
+                                <li>Объявите атаку и выберите цель</li>
+                                <li>Бросьте кубики атаки (количество зависит от оружия)</li>
+                                <li>Враг бросает кубики защиты</li>
+                                <li>Урон = (хиты атаки) - (блоки защиты)</li>
+                                <li>Примените специальные эффекты способностей</li>
+                            </ol>
+                            <div class="dice-legend">
+                                <div class="dice-item">
+                                    <span class="dice red">⚔️</span>
+                                    <span>Попадание</span>
+                                </div>
+                                <div class="dice-item">
+                                    <span class="dice blue">🛡️</span>
+                                    <span>Блок</span>
+                                </div>
+                                <div class="dice-item">
+                                    <span class="dice gold">💀</span>
+                                    <span>Критический удар</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rules-section">
+                            <h3>🏆 Условия победы</h3>
+                            <p>
+                                Игроки побеждают, когда все пять Осколков Печати собраны 
+                                и Тёмный Владыка Морготар повержен в финальной битве.
+                            </p>
+                            <p class="warning-text">
+                                ⚠️ Если все герои погибли или Колода Судьбы истощена — 
+                                Тьма победила, и игра проиграна.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>🎭 Классы героев</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="hero-grid">
+                            <div class="hero-card">
+                                <div class="hero-icon">🗡️</div>
+                                <h4>Воин</h4>
+                                <p>Мастер ближнего боя с высокой защитой</p>
+                            </div>
+                            <div class="hero-card">
+                                <div class="hero-icon">🏹</div>
+                                <h4>Следопыт</h4>
+                                <p>Дальнобойный снайпер и разведчик</p>
+                            </div>
+                            <div class="hero-card">
+                                <div class="hero-icon">🔮</div>
+                                <h4>Маг</h4>
+                                <p>Владеет разрушительной магией</p>
+                            </div>
+                            <div class="hero-card">
+                                <div class="hero-icon">✨</div>
+                                <h4>Жрец</h4>
+                                <p>Целитель и защитник союзников</p>
+                            </div>
+                            <div class="hero-card">
+                                <div class="hero-icon">🗝️</div>
+                                <h4>Вор</h4>
+                                <p>Мастер скрытности и ловушек</p>
+                            </div>
+                            <div class="hero-card">
+                                <div class="hero-icon">🐺</div>
+                                <h4>Оборотень</h4>
+                                <p>Меняет форму в пылу битвы</p>
+                            </div>
+                            <div class="hero-card">
+                                <div class="hero-icon">⚰️</div>
+                                <h4>Некромант</h4>
+                                <p>Повелевает силами смерти</p>
+                            </div>
+                            <div class="hero-card">
+                                <div class="hero-icon">🔥</div>
+                                <h4>Паладин</h4>
+                                <p>Святой воин Света</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feedback Section -->
+            <section class="tab-content" id="feedback">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>✉️ Ваш голос важен</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="feedback-intro">
+                            Поделитесь своими впечатлениями об игре или предложите идеи 
+                            для улучшения. Каждое сообщение будет прочитано!
+                        </p>
+
+                        <form id="feedback-form" class="feedback-form">
+                            <div class="form-group">
+                                <label for="name">👤 Ваше имя</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    placeholder="Как к вам обращаться?"
+                                    maxlength="50"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label>🏷️ Тип сообщения</label>
+                                <div class="radio-group">
+                                    <label class="radio-option">
+                                        <input type="radio" name="type" value="review" checked>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">⭐ Отзыв</span>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="type" value="suggestion">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">💡 Предложение</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">📝 Сообщение *</label>
+                                <textarea 
+                                    id="message" 
+                                    name="message" 
+                                    placeholder="Напишите ваш отзыв или предложение..."
+                                    rows="5"
+                                    required
+                                    maxlength="2000"
+                                ></textarea>
+                                <div class="char-counter">
+                                    <span id="char-count">0</span>/2000
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="submit-btn">
+                                <span class="btn-text">📮 Отправить</span>
+                                <span class="btn-loading">⏳ Отправка...</span>
+                            </button>
+                        </form>
+
+                        <div id="success-message" class="success-message hidden">
+                            <div class="success-icon">✅</div>
+                            <h3>Сообщение отправлено!</h3>
+                            <p>Благодарим за ваш вклад в развитие игры.</p>
+                        </div>
+
+                        <div id="error-message" class="error-message hidden">
+                            <div class="error-icon">❌</div>
+                            <h3>Ошибка отправки</h3>
+                            <p id="error-text">Пожалуйста, попробуйте позже.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>⚔️ Тени Эльдории © 2024</p>
+            <p class="footer-sub">Сделано с 🖤 для любителей тёмного фэнтези</p>
+        </footer>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
