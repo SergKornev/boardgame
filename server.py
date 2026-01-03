@@ -14,8 +14,15 @@ load_dotenv()
 # Configuration
 BOT_TOKEN = os.getenv('BOT_TOKEN', '')
 CHANNEL_ID = os.getenv('CHANNEL_ID', '')
-WEBAPP_URL = os.getenv('WEBAPP_URL', 'http://localhost:3000')
-PORT = int(os.getenv('PORT', 3000))
+PORT = int(os.getenv('PORT', 8080))
+
+# Automatic URL detection for Railway
+RAILWAY_DOMAIN = os.getenv('RAILWAY_PUBLIC_DOMAIN')
+if RAILWAY_DOMAIN:
+    WEBAPP_URL = f"https://{RAILWAY_DOMAIN}"
+    logger.info(f"🚀 Обнаружен домен Railway: {WEBAPP_URL}")
+else:
+    WEBAPP_URL = os.getenv('WEBAPP_URL', f'http://localhost:{PORT}')
 
 # Validate configuration
 if not BOT_TOKEN:
