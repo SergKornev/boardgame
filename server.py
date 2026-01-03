@@ -1,32 +1,24 @@
 import os
 import logging
 import asyncio
-from flask import Flask, request, jsonify, send_from_directory
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from aiogram.filters import Command
 from dotenv import load_dotenv
-import threading
 
 # Load environment variables
 load_dotenv()
 
 # Configuration
 BOT_TOKEN = os.getenv('BOT_TOKEN', '')
-CHANNEL_ID = os.getenv('CHANNEL_ID', '')
-PORT = int(os.getenv('PORT', 8080))
-
-# Automatic URL detection for Railway
-RAILWAY_DOMAIN = os.getenv('RAILWAY_PUBLIC_DOMAIN')
-if RAILWAY_DOMAIN:
-    WEBAPP_URL = f"https://{RAILWAY_DOMAIN}"
-    logger.info(f"🚀 Обнаружен домен Railway: {WEBAPP_URL}")
-else:
-    WEBAPP_URL = os.getenv('WEBAPP_URL', f'http://localhost:{PORT}')
+WEBAPP_URL = os.getenv('WEBAPP_URL', '')
 
 # Validate configuration
 if not BOT_TOKEN:
     raise ValueError("BOT_TOKEN не задан в переменных окружения!")
+
+if not WEBAPP_URL:
+    logging.warning("WEBAPP_URL не задан! Кнопка 'Открыть Гримуар' не будет работать корректно.")
 
 # Setup logging
 logging.basicConfig(
@@ -35,73 +27,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Initialize Flask app
-app = Flask(__name__, static_folder='public', static_url_path='')
-
 # Initialize Aiogram bot
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-
-# ============== FLASK ROUTES ==============
-
-@app.route('/')
-def index():
-    """Serve the main page"""
-    return send_from_directory('public', 'index.html')
-
-@app.route('/<path:path>')
-def static_files(path):
-    """Serve static files"""
-    return send_from_directory('public', path)
-
-@app.route('/api/feedback', methods=['POST'])
-def feedback():
-    """Handle feedback submissions from WebApp"""
-    try:
-        data = request.get_json()
-        
-        name = data.get('name', 'Аноним')
-        msg_type = data.get('type', 'review')
-        message = data.get('message', '')
-        username = data.get('username', '')
-        
-        if not message or message.strip() == '':
-            return jsonify({'error': 'Сообщение не может быть пустым'}), 400
-        
-        if not CHANNEL_ID:
-            logger.warning('CHANNEL_ID не задан, невозможно отправить сообщение.')
-            return jsonify({'error': 'Ошибка конфигурации сервера'}), 500
-        
-        # Format message
-        type_emoji = '⭐' if msg_type == 'review' else '💡'
-        type_name = 'Отзыв' if msg_type == 'review' else 'Предложение'
-        username_str = f' (@{username})' if username else ''
-        
-        report = f"""📜 *Новая запись в летописи*
-
-{type_emoji} *Тип:* {type_name}
-👤 *Автор:* {name}{username_str}
-
-📝 *Сообщение:*
-{message}"""
-        
-        # Send to Telegram using new event loop
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            loop.run_until_complete(bot.send_message(
-                chat_id=CHANNEL_ID,
-                text=report,
-                parse_mode='Markdown'
-            ))
-        finally:
-            loop.close()
-        
-        return jsonify({'success': True, 'message': 'Ваше сообщение отправлено!'})
-        
-    except Exception as e:
-        logger.error(f'Ошибка отправки сообщения: {e}')
-        return jsonify({'error': 'Внутренняя ошибка сервера'}), 500
 
 # ============== TELEGRAM BOT HANDLERS ==============
 
@@ -147,22 +75,15 @@ async def rules_command(message: types.Message):
         parse_mode='Markdown'
     )
 
-def run_flask():
-    """Run Flask server"""
-    logger.info(f"🏰 Сервер запущен на порту {PORT}")
-    app.run(host='0.0.0.0', port=PORT, debug=False, use_reloader=False)
-
-async def run_bot():
+async def main():
     """Run the Telegram bot"""
-    logger.info("🤖 Telegram бот запущен")
+    logger.info(f"🤖 Telegram бот запущен. WebApp URL: {WEBAPP_URL}")
     await dp.start_polling(bot)
 
 # ============== MAIN ==============
 
 if __name__ == '__main__':
-    # Start Flask in a separate thread
-    flask_thread = threading.Thread(target=run_flask, daemon=True)
-    flask_thread.start()
-    
-    # Run bot in main thread
-    asyncio.run(run_bot())
+    try:
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        logger.info("Бот остановлен")
